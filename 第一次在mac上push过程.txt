@@ -1,0 +1,28 @@
+1:下载客户端：https://code.google.com/archive/p/git-osx-installer/
+
+2:安装客户端，安装没有什么好说的，打开.dmg文件，然后运行.pkg文件,一步一步往后装即可。git 会被安装到/usr/local/git/bin 目录下。若os提示未知程序，在偏好设置中更改安全设置，
+
+3:配置
+  1>:在终端进入.ssh目录  输入：cd ~/.ssh 若提示提示 “no such file or directory” ，说明没有这个文件夹，执行：mkdir ~/.ssh 新建文件夹就好了。
+  2>:生成密钥，执行$ ssh-keygen -t rsa -C "你的邮箱@xxx.com" //之后一路回车即可 
+   然后在.ssh目录下会有一个id_rsa.pub文件，文件里就是刚才生成的密钥，用vim等编辑器打开并复制内容。
+  3>:将密钥配置到github账号设置中的SSH Keys里
+  4>:执行$ ssh -T git@github.com 之后出现的显示都填yes即可，出现：
+HiXXX! You've successfully authenticated, but GitHub does not provide shell access.
+即为连接成功。如果连接失败，有可能是默认的22端口被封了，可以在.ssh目录下新建一个名为config(没有后缀名)的文件，内容如下：
+Host github.com  
+User XXX@XXX.com  
+Port 443  
+Hostname ssh.github.com
+  5>:配置用户信息，用于push时的记录
+$ git config --global user.name "XXXX" //自己随便起个名字  
+$ git config --global user.email "XXX@XXX.com"
+
+4:创建本地仓库：切换到需要提交的项目根目录
+git init //在当前项目目录中生成本地git管理,并建立一个隐藏.git目录
+git add . //添加当前目录中的所有文件到索引
+git commit -m "first commit" //提交到本地源码库，并附加提交注释
+git remote add nodejs https://github.com/username/reposiname.git //添加到远程项目，别名为nodejs  链接为github仓库链接
+git pull nodejs master //将github中的文件更新到本地（合并操作），此处若提示输入merge message，添加描述后执行 :w 保存，然后执行 :q 退出。之后可能需要提交merge message 执行git commit即可
+git push nodejs master //把本地源码库push到github 别名为nodejs的远程项目中，确认提交
+
