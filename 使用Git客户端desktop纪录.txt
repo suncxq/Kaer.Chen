@@ -3,3 +3,5 @@
 导入后即可看到每一次修改内容,注意commit后只是提交到本地仓库，同步remote需要点击publish
 若要忽略某些文件：需要在本地仓库根目录下新建.gitignore文件
 如忽略webstorm到配置文件夹.idea则在gitignore文件中添加 /.idea
+
+另外还有一个叫sourcetree的客户端好像也挺好用
